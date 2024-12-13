@@ -14,6 +14,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import { TaskStorage, Task, SubTask } from './storage';
 
 class AppUpdater {
   constructor() {
@@ -123,6 +124,53 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
+const storage = new TaskStorage();
+
+ipcMain.handle('add-task', async (_, task: Task) => {
+  await storage.addTask(task);
+});
+
+ipcMain.handle('get-tasks', async () => {
+  return await storage.loadTasks();
+});
+
+ipcMain.handle('delete-task', async (_, index: number) => {
+  await storage.deleteTask(index);
+});
+
+ipcMain.handle('update-task', async (_, index: number, task: Task) => {
+  await storage.updateTask(index, task);
+});
+
+ipcMain.handle(
+  'update-task-name',
+  async (_, index: number, taskName: string) => {
+    await storage.updateTaskName(index, taskName);
+  },
+);
+
+ipcMain.handle('toggle-task-complete', async (_, index: number) => {
+  await storage.toggleTaskComplete(index);
+});
+
+ipcMain.handle('add-subTask', async (_, index: number, subTask: SubTask) => {
+  await storage.addSubTask(index, subTask);
+});
+
+ipcMain.handle(
+  'delete-subTask',
+  async (_, index: number, subTaskIndex: number) => {
+    await storage.deleteSubTask(index, subTaskIndex);
+  },
+);
+
+ipcMain.handle(
+  'toggle-subtask-complete',
+  async (_, taskIndex: number, subTaskIndex: number) => {
+    await storage.toggleSubTaskComplete(taskIndex, subTaskIndex);
+  },
+);
 
 app
   .whenReady()
