@@ -18,9 +18,18 @@ export const loadTasks = createAsyncThunk('task/load', async () => {
 export const saveTasks = createAsyncThunk(
   'task/save',
   async (_, { getState }) => {
-    const { tasks } = getState() as StartState;
+    try {
+      const state = getState() as { task: StartState }; // Make sure to get the correct state slice
+      const tasks = state.task.tasks; // Access the tasks through the correct path
 
-    await window.electronAPI.saveTasks(tasks);
+      console.log('Saving tasks:', tasks); // Debug log to see what's being saved
+
+      await window.electronAPI.saveTasks(tasks);
+      console.log('Tasks saved successfully'); // Confirm save completed
+    } catch (error) {
+      console.error('Failed to save tasks:', error);
+      throw error;
+    }
   },
 );
 

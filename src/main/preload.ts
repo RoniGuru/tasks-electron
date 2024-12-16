@@ -29,6 +29,7 @@ contextBridge.exposeInMainWorld('electron', electronHandler);
 
 contextBridge.exposeInMainWorld('electronAPI', {
   addTask: (task: Task) => ipcRenderer.invoke('add-task', task),
+  saveTasks: (tasks: Task[]) => ipcRenderer.invoke('save-tasks', tasks),
   getTasks: () => ipcRenderer.invoke('get-tasks'),
   deleteTask: (index: number) => ipcRenderer.invoke('delete-task', index),
   updateTask: (index: number, task: Task) =>

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { RootState, AppDispatch } from './state/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadTasks } from './state/Task/taskSlice';
+import { loadTasks, saveTasks } from './state/Task/taskSlice';
 import TaskForm from './Components/TaskForm';
 import Task from './Components/Task';
 function Home() {
@@ -19,6 +19,8 @@ function Home() {
           <Task key={index} task={task} index={index} />
         ))}
       </div>
+
+      <button onClick={() => dispatch(saveTasks())}>Save Button</button>
     </div>
   );
 }
