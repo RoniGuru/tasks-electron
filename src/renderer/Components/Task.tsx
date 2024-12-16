@@ -2,7 +2,14 @@ import { Task } from '../../main/storage';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../state/store';
-import { updateTask, toggleTask } from '../state/Task/taskSlice';
+import {
+  updateTask,
+  toggleTask,
+  deleteTask,
+  deleteSubTask,
+  toggleSubTask,
+} from '../state/Task/taskSlice';
+import SubTaskForm from './SubTaskForm';
 
 function Task({ task, index }: { task: Task; index: number }) {
   const [editText, setEditText] = useState<string>('');
@@ -65,32 +72,31 @@ function Task({ task, index }: { task: Task; index: number }) {
           {task.name}
         </span>
       )}
-      {/* <ul>
-  {task.subTasks.map((subTask, subIndex) => (
-    <li key={subIndex}>
-      <input
-        type="checkbox"
-        checked={subTask.completed}
-        onChange={() =>
-          handleToggleSubTaskComplete(index, subIndex)
-        }
-      />
-      <span
-        style={{
-          textDecoration: subTask.completed
-            ? 'line-through'
-            : 'none',
-        }}
-      >
-        {subTask.name}
-      </span>
-      <button onClick={() => handleSubTaskDelete(index, subIndex)}>
-        Delete
-      </button>
-    </li>
-  ))}
-</ul>
-<button onClick={() => handleDelete(index)}>Delete</button> */}
+      <ul>
+        <SubTaskForm index={index} />
+        {task.subTasks.map((subTask, subIndex) => (
+          <li key={subIndex}>
+            <input
+              type="checkbox"
+              checked={subTask.completed}
+              onChange={() => dispatch(toggleSubTask({ index, subIndex }))}
+            />
+            <span
+              style={{
+                textDecoration: subTask.completed ? 'line-through' : 'none',
+              }}
+            >
+              {subTask.name}
+            </span>
+            <button
+              onClick={() => dispatch(deleteSubTask({ index, subIndex }))}
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+      <button onClick={() => dispatch(deleteTask(index))}>Delete</button>
     </div>
   );
 }
