@@ -3,6 +3,7 @@ import { RootState, AppDispatch } from './state/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadTasks } from './state/Task/taskSlice';
 import TaskForm from './Components/TaskForm';
+import Task from './Components/Task';
 function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const tasks = useSelector((state: RootState) => state.task.tasks);
@@ -15,9 +16,7 @@ function Home() {
       <TaskForm />
       <div style={{ flex: 'col' }}>
         {tasks.map((task, index) => (
-          <div key={index}>
-            {task.name} + {index}
-          </div>
+          <Task key={index} task={task} index={index} />
         ))}
       </div>
     </div>
