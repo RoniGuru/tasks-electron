@@ -127,6 +127,10 @@ app.on('window-all-closed', () => {
 
 const storage = new TaskStorage();
 
+ipcMain.handle('save-tasks', async (_, tasks: Task[]) => {
+  await storage.saveTasks(tasks);
+});
+
 ipcMain.handle('add-task', async (_, task: Task) => {
   await storage.addTask(task);
 });

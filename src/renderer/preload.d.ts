@@ -3,6 +3,7 @@ import { Task } from '../main/storage';
 
 export interface ElectronAPI {
   addTask: (task: Task) => Promise<void>;
+  saveTasks: (tasks: Task[]) => Promise<void>;
   getTasks: () => Promise<Task[]>;
   deleteTask: (index: number) => Promise<void>;
   updateTask: (index: number, task: Task) => Promise<void>;
