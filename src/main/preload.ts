@@ -28,21 +28,18 @@ const electronHandler = {
 contextBridge.exposeInMainWorld('electron', electronHandler);
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  addTask: (task: Task) => ipcRenderer.invoke('add-task', task),
   saveTasks: (tasks: Task[]) => ipcRenderer.invoke('save-tasks', tasks),
   getTasks: () => ipcRenderer.invoke('get-tasks'),
-  deleteTask: (index: number) => ipcRenderer.invoke('delete-task', index),
-  updateTask: (index: number, task: Task) =>
-    ipcRenderer.invoke('update-task', index, task),
-  updateTaskName: (index: number, taskName: string) =>
-    ipcRenderer.invoke('update-task-name', index, taskName),
-  toggleTaskComplete: (index: number) =>
-    ipcRenderer.invoke('toggle-task-complete', index),
-  addSubTask: (index: number, subTask: SubTask) =>
-    ipcRenderer.invoke('add-subTask', index, subTask),
-  deleteSubTask: (index: number, subTaskIndex: number) =>
-    ipcRenderer.invoke('delete-subTask', index, subTaskIndex),
-  toggleSubTaskComplete: (taskIndex: number, subTaskIndex: number) =>
-    ipcRenderer.invoke('toggle-subtask-complete', taskIndex, subTaskIndex),
+
+  onSaveAndClose: (callback: () => void) => {
+    const subscription = (_event: any) => callback();
+    ipcRenderer.on('save-state-and-close', subscription);
+    return () => {
+      ipcRenderer.removeListener('save-state-and-close', subscription);
+    };
+  },
+  saveCompleted: () => {
+    ipcRenderer.send('save-completed');
+  },
 });
 export type ElectronHandler = typeof electronHandler;

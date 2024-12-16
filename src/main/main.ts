@@ -95,6 +95,21 @@ const createWindow = async () => {
     }
   });
 
+  // before window closes
+  mainWindow.on('close', async (e) => {
+    if (mainWindow) {
+      e.preventDefault();
+      try {
+        // Notify renderer to save state
+        mainWindow.webContents.send('save-state-and-close');
+      } catch (error) {
+        console.error('Error during close:', error);
+        mainWindow = null;
+        app.quit();
+      }
+    }
+  });
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
@@ -125,56 +140,22 @@ app.on('window-all-closed', () => {
   }
 });
 
+ipcMain.on('save-completed', () => {
+  if (mainWindow) {
+    mainWindow = null;
+    app.quit();
+  }
+});
+
 const storage = new TaskStorage();
 
 ipcMain.handle('save-tasks', async (_, tasks: Task[]) => {
   await storage.saveTasks(tasks);
 });
 
-ipcMain.handle('add-task', async (_, task: Task) => {
-  await storage.addTask(task);
-});
-
 ipcMain.handle('get-tasks', async () => {
   return await storage.loadTasks();
 });
-
-ipcMain.handle('delete-task', async (_, index: number) => {
-  await storage.deleteTask(index);
-});
-
-ipcMain.handle('update-task', async (_, index: number, task: Task) => {
-  await storage.updateTask(index, task);
-});
-
-ipcMain.handle(
-  'update-task-name',
-  async (_, index: number, taskName: string) => {
-    await storage.updateTaskName(index, taskName);
-  },
-);
-
-ipcMain.handle('toggle-task-complete', async (_, index: number) => {
-  await storage.toggleTaskComplete(index);
-});
-
-ipcMain.handle('add-subTask', async (_, index: number, subTask: SubTask) => {
-  await storage.addSubTask(index, subTask);
-});
-
-ipcMain.handle(
-  'delete-subTask',
-  async (_, index: number, subTaskIndex: number) => {
-    await storage.deleteSubTask(index, subTaskIndex);
-  },
-);
-
-ipcMain.handle(
-  'toggle-subtask-complete',
-  async (_, taskIndex: number, subTaskIndex: number) => {
-    await storage.toggleSubTaskComplete(taskIndex, subTaskIndex);
-  },
-);
 
 app
   .whenReady()
