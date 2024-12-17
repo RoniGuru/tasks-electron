@@ -1,6 +1,6 @@
-import { Task } from '../../main/storage';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Task } from '../../main/storage';
 import { AppDispatch } from '../state/store';
 import {
   updateTask,
@@ -13,15 +13,11 @@ import SubTaskForm from './SubTaskForm';
 import { IoTrashBin } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
 
-function Task({ task, index }: { task: Task; index: number }) {
+function TaskCard({ task, index }: { task: Task; index: number }) {
   const [editText, setEditText] = useState<string>('');
   const [isEditing, setIsEditing] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
-
-  const handleDoubleClick = () => {
-    setIsEditing(true);
-  };
 
   const handleBlur = () => {
     setIsEditing(false);
@@ -120,4 +116,4 @@ function Task({ task, index }: { task: Task; index: number }) {
   );
 }
 
-export default Task;
+export default TaskCard;

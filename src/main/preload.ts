@@ -32,7 +32,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   getTasks: () => ipcRenderer.invoke('get-tasks'),
 
   onSaveAndClose: (callback: () => void) => {
-    const subscription = (_event: any) => callback();
+    const subscription = () => callback();
     ipcRenderer.on('save-state-and-close', subscription);
     return () => {
       ipcRenderer.removeListener('save-state-and-close', subscription);

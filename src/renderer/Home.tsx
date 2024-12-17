@@ -3,7 +3,7 @@ import { RootState, AppDispatch } from './state/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadTasks, saveTasks } from './state/Task/taskSlice';
 import TaskForm from './Components/TaskForm';
-import Task from './Components/Task';
+import TaskCard from './Components/Task';
 import { IoIosSave } from 'react-icons/io';
 
 function Home() {
@@ -39,7 +39,7 @@ function Home() {
       <TaskForm />
       <div className="tasksContainer">
         {tasks.map((task, index) => (
-          <Task key={index} task={task} index={index} />
+          <TaskCard key={index} task={task} index={index} />
         ))}
       </div>
 

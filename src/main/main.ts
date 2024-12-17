@@ -14,7 +14,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import { TaskStorage, Task, SubTask } from './storage';
+import { TaskStorage, Task } from './storage';
 
 class AppUpdater {
   constructor() {
@@ -154,7 +154,7 @@ ipcMain.handle('save-tasks', async (_, tasks: Task[]) => {
 });
 
 ipcMain.handle('get-tasks', async () => {
-  return await storage.loadTasks();
+  return storage.loadTasks();
 });
 
 app
