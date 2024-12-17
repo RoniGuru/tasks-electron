@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadTasks, saveTasks } from './state/Task/taskSlice';
 import TaskForm from './Components/TaskForm';
 import Task from './Components/Task';
+import { IoIosSave } from 'react-icons/io';
+
 function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const tasks = useSelector((state: RootState) => state.task.tasks);
@@ -33,15 +35,17 @@ function Home() {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className="home">
       <TaskForm />
-      <div style={{ flex: 'col' }}>
+      <div className="tasksContainer">
         {tasks.map((task, index) => (
           <Task key={index} task={task} index={index} />
         ))}
       </div>
 
-      <button onClick={() => dispatch(saveTasks())}>Save Button</button>
+      <button onClick={() => dispatch(saveTasks())}>
+        Save Button <IoIosSave />
+      </button>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../state/store';
-import { SubTask } from '../../main/storage';
 import { addSubTask } from '../state/Task/taskSlice';
+import { FaRegSquarePlus } from 'react-icons/fa6';
 
 function SubTaskForm({ index }: { index: number }) {
   const [name, setName] = useState('');
@@ -17,14 +17,26 @@ function SubTaskForm({ index }: { index: number }) {
   };
 
   return (
-    <form onSubmit={handleSubTaskSubmit}>
+    <form onSubmit={handleSubTaskSubmit} className="subTaskForm">
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Enter subTask name"
       />
-      <button type="submit">Add SubTask</button>{' '}
+      <button
+        type="submit"
+        style={{
+          border: 'none',
+          background: 'none',
+          cursor: 'pointer',
+
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <FaRegSquarePlus className="icon" size={25} />
+      </button>
     </form>
   );
 }
