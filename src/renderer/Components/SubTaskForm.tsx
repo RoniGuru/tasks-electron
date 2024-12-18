@@ -13,6 +13,11 @@ function SubTaskForm({ index }: { index: number }) {
     e.preventDefault();
     if (!name.trim()) return;
 
+    if (name.length > 20) {
+      alert('Name is longer than 20 characters');
+      return;
+    }
+
     dispatch(addSubTask({ index, name }));
   };
 

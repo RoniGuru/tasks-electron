@@ -18,7 +18,12 @@ export class TaskStorage {
   private filePath: string;
 
   constructor() {
-    this.filePath = path.join(app.getPath('userData'), 'tasks.json');
+    if (!app.isPackaged) {
+      this.filePath = path.join(app.getPath('userData'), 'dev-tasks.json');
+    } else {
+      // Production storage
+      this.filePath = path.join(app.getPath('userData'), 'tasks.json');
+    }
   }
 
   async saveTasks(tasks: Task[]): Promise<void> {

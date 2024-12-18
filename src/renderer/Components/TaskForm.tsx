@@ -14,6 +14,11 @@ function TaskForm() {
     e.preventDefault();
     if (!newTaskName.trim()) return;
 
+    if (newTaskName.length > 30) {
+      alert('Name is longer than 30 characters');
+      return;
+    }
+
     const newTask: Task = {
       name: newTaskName,
       color: newTaskColor,

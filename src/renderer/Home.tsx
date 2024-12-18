@@ -36,16 +36,15 @@ function Home() {
 
   return (
     <div className="home">
+      <button onClick={() => dispatch(saveTasks())} className="saveButton">
+        Save <IoIosSave />
+      </button>
       <TaskForm />
       <div className="tasksContainer">
         {tasks.map((task, index) => (
           <TaskCard key={index} task={task} index={index} />
         ))}
       </div>
-
-      <button onClick={() => dispatch(saveTasks())}>
-        Save Button <IoIosSave />
-      </button>
     </div>
   );
 }
