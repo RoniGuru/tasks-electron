@@ -5,14 +5,15 @@ import { loadTasks, saveTasks } from './state/Task/taskSlice';
 import TaskForm from './Components/TaskForm';
 import TaskCard from './Components/Task';
 import { IoIosSave } from 'react-icons/io';
+import SearchBar from './Components/SearchBar';
 
 function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const tasks = useSelector((state: RootState) => state.task.tasks);
 
-  const [searching, setSearching] = useState(false);
-
   const [filter, setFilter] = useState<boolean | null>(null);
+
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
     dispatch(loadTasks());
@@ -45,6 +46,7 @@ function Home() {
         Save <IoIosSave />
       </button>
       <TaskForm />
+      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <div className="tasksFilterButtons">
         <button
           onClick={() => setFilter(null)}
@@ -66,8 +68,12 @@ function Home() {
         </button>
       </div>
       <div className="tasksContainer">
-        {searching
-          ? null
+        {searchTerm.length > 0
+          ? tasks
+              .filter((task) => task.name.includes(searchTerm))
+              .map((task, index) => (
+                <TaskCard key={index} task={task} index={index} />
+              ))
           : filter == null
             ? tasks.map((task, index) => (
                 <TaskCard key={index} task={task} index={index} />

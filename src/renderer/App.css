@@ -58,7 +58,7 @@ body {
 .tasksContainer {
   display: flex;
   flex-direction: column;
-  height: 70%;
+  height: 60%;
   width: 100%;
   gap: 2%;
   overflow-y: auto;
@@ -113,6 +113,13 @@ button:hover {
 
 .colorPicker:hover {
   opacity: 80%;
+}
+
+.searchBar {
+  width: 60%;
+  align-self: center;
+  padding: 2%;
+  margin-bottom: 2%;
 }
 
 .subTasksContainer {
