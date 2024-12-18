@@ -5,9 +5,18 @@ import { Task } from '../../main/storage';
 import { addTask } from '../state/Task/taskSlice';
 import { FaRegSquarePlus } from 'react-icons/fa6';
 
+const colors = [
+  ['#1f77b4', 'Blue'],
+  ['#2ca02c', 'Green'],
+  ['#ff7f0e', 'Orange'],
+  ['#d62728', 'Red'],
+  ['#9467bd', 'Purple'],
+  ['#17becf', 'Teal'],
+];
+
 function TaskForm() {
   const [newTaskName, setNewTaskName] = useState('');
-  const [newTaskColor, setNewTaskColor] = useState('#000000');
+  const [newTaskColor, setNewTaskColor] = useState(colors[0][0]);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -37,7 +46,30 @@ function TaskForm() {
         placeholder="Enter task name"
         className="input"
       />
-      <input
+      <select
+        value={colors[0]}
+        style={{
+          backgroundColor: newTaskColor,
+          color: newTaskColor,
+        }}
+        className="colorPicker"
+        onChange={(e) => setNewTaskColor(e.target.value)}
+      >
+        {colors.map((color) => (
+          <option
+            key={color[0]}
+            value={color[0]}
+            style={{
+              backgroundColor: color[0],
+              color: color[0],
+            }}
+          >
+            {color[1]}
+          </option>
+        ))}
+      </select>
+
+      {/* <input
         type="color"
         value={newTaskColor}
         onChange={(e) => setNewTaskColor(e.target.value)}
@@ -49,7 +81,7 @@ function TaskForm() {
           backgroundColor: 'transparent',
           border: 'none',
         }}
-      />
+      /> */}
 
       <button
         type="submit"

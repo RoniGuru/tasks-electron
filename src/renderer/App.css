@@ -90,6 +90,16 @@ button:hover {
   gap: 2%;
 }
 
+.colorPicker {
+  height: 30%;
+  width: 80px;
+  border-radius: 5px;
+}
+
+.colorPicker:hover {
+  opacity: 80%;
+}
+
 .subTasksContainer {
   display: flex;
   flex-direction: column;

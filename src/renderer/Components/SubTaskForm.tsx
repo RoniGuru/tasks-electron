@@ -19,6 +19,7 @@ function SubTaskForm({ index }: { index: number }) {
     }
 
     dispatch(addSubTask({ index, name }));
+    setName('');
   };
 
   return (
