@@ -19,6 +19,7 @@ body {
 .home {
   width: 90vw;
   height: 100vh;
+  gap: 20px;
   justify-content: center;
   display: flex;
   flex-direction: column;
@@ -85,14 +86,74 @@ button {
   all: unset;
 }
 
+.button {
+  background-color: grey;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .icon:hover {
   transform: scale(1.2);
   cursor: pointer;
 }
 
-button:hover {
-  transform: scale(1.05);
-  opacity: 1;
+.icon2:hover {
+  opacity: 80%;
+}
+
+/* taskform modal */
+
+.modalBackground {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  top: 0;
+  left: 0;
+  background-color: black;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  z-index: 10;
+}
+.taskFormModal {
+  opacity: 100%;
+  padding: 10px;
+  width: 40%;
+  height: 40%;
+  background-color: #3e3e42;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  justify-content: space-between;
+}
+
+.taskFormModal button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  transition: all 0.2s ease-out;
+}
+.taskFormModal input {
+  width: 90%;
+  align-self: center;
+}
+.colorButtonsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  height: 40%;
+  width: 80%;
+  padding: 5%;
+  gap: 2%;
+  row-gap: 20%;
+  align-self: center;
+}
+.colorButton {
+  border-radius: 5px;
 }
 
 .taskForm {
@@ -103,16 +164,6 @@ button:hover {
   align-items: center;
   align-self: center;
   gap: 2%;
-}
-
-.colorPicker {
-  height: 30%;
-  width: 10%;
-  border-radius: 5px;
-}
-
-.colorPicker:hover {
-  opacity: 80%;
 }
 
 .searchBar {
@@ -136,6 +187,7 @@ button:hover {
   margin-left: 2%;
   gap: 5%;
 }
+
 .subTaskForm input {
   padding: 2%;
   width: 80%;

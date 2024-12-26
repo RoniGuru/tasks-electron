@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { RootState, AppDispatch } from './state/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadTasks, saveTasks } from './state/Task/taskSlice';
-import TaskForm from './Components/TaskForm';
+
 import TaskCard from './Components/Task';
 import { IoIosSave } from 'react-icons/io';
 import SearchBar from './Components/SearchBar';
+import TaskFormModal from './Components/TaskFormModal';
 
 function Home() {
   const dispatch = useDispatch<AppDispatch>();
@@ -45,7 +46,7 @@ function Home() {
       <button onClick={() => dispatch(saveTasks())} className="saveButton">
         Save <IoIosSave />
       </button>
-      <TaskForm />
+      <TaskFormModal />
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <div className="tasksFilterButtons">
         <button

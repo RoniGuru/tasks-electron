@@ -3,7 +3,7 @@ import { Task } from '../main/storage';
 
 export interface ElectronAPI {
   saveTasks: (tasks: Task[]) => Promise<void>;
-
+  getTasks: () => Promise<Task[]>;
   onSaveAndClose: (callback: () => void) => () => void;
   saveCompleted: () => void;
 }
