@@ -38,6 +38,10 @@ function TaskFormModal() {
     };
 
     dispatch(addTask(newTask));
+
+    setModal(false);
+    setNewTaskColor(colors[0][1]);
+    setNewTaskName('');
   };
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>

@@ -59,7 +59,7 @@ body {
 .tasksContainer {
   display: flex;
   flex-direction: column;
-  height: 60%;
+  height: 55%;
   width: 100%;
   gap: 2%;
   overflow-y: auto;
